@@ -1,7 +1,6 @@
 package com.chenes.security.controller;
 
 import com.chenes.security.bean.PdspUser;
-import com.chenes.security.service.UserService;
 import com.chenes.security.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * @description 
@@ -80,5 +78,12 @@ public class SystemInfoContorller {
     @RequestMapping(value = "/toindex",method = RequestMethod.GET)
     public String toindex(){
         return "index";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/haspermission",method = RequestMethod.GET)
+    public String hasPermission(@RequestParam("url") String url){
+        boolean flag = SecurityUtils.hasPermission(url);
+        return "{\"flag\":"+flag+"}";
     }
 }

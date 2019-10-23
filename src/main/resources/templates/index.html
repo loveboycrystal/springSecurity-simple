@@ -16,10 +16,13 @@
 <hr>
 <h3>验证方法权限注解：</h3>
 <ol>
-    <li><a href="/user/list">用户列表权限</a></li>
-    <li><a href="/menu/list">菜单列表权限</a></li>
+    <li><a href="javascript:getCheckPermission('/user/list')">用户列表权限</a></li>
+    <li><a href="javascript:getCheckPermission('/menu/list')">菜单列表权限</a></li>
 </ol>
+<b>验证结果</b>
+<div id="checkpermissionresult">
 
+</div>
 <br>
 <script>
     $(function(){
@@ -37,6 +40,48 @@
             }
         })
     }
+
+    function getRequestJson(reqUrl){
+        var data;
+        $.ajax({
+            type : "get",
+            url : reqUrl,
+            // data : "test=" + test,
+            async : false,
+            success : function(res){
+                data = res;
+            }
+        });
+        return data;
+    }
+
+    function getCheckPermission(url){
+        var reqUrl = "/system/haspermission?url="+url;
+        $.get(reqUrl,function(res){
+            var resJson = JSON.parse(res);
+            var flag = resJson.flag;
+            if(true == flag){
+                $("#checkpermissionresult").html("<span style='color:green;padding-left: 40px;'>["+url+"]已授权访问</span>");
+                switch (url) {
+                    case "/user/list":
+                        var userList = getRequestJson(url);
+                        var html = "<dl style='padding-left: 40px;'>";
+                        for(var i=0;i<userList.length;i++){
+                            var html =
+                                html += ("<dt>"+userList[i].uid+","+userList[i].nickName+","+userList[i].username+"</dt>")
+                        }
+                        $("#checkpermissionresult").append(html+"</dl>");
+                        break;
+                    case "/menu/list":
+                        break;
+                }
+            }else{
+                $("#checkpermissionresult").html("<span style='color:red;padding-left: 40px;'>["+url+"]未授权访问</span>");
+            }
+
+        })
+    }
+
 </script>
 
 </body>

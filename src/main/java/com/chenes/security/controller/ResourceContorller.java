@@ -1,5 +1,8 @@
 package com.chenes.security.controller;
 
+import com.chenes.security.bean.PdspMenu;
+import com.chenes.security.bean.PdspUser;
+import com.chenes.security.service.MenuService;
 import com.chenes.security.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.awt.*;
+import java.util.List;
 
 /**
  * @description 
@@ -26,23 +32,22 @@ public class ResourceContorller {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MenuService menuService;
+
     @ResponseBody
     @PreAuthorize("hasAuthority('/menu/list')")
     @RequestMapping(value = "/menu/list",method = RequestMethod.GET)
-    public String menulist(){
-        return "menu/info";
+    public List<PdspMenu> menulist(){
+        return menuService.getAllPdspMenuList();
     }
 
 
     @ResponseBody
     @PreAuthorize("hasAuthority('/user/list')")
     @RequestMapping(value = "/user/list",method = RequestMethod.GET)
-    public String userlist(){
-        return "user/info";
+    public List<PdspUser> userlist(){
+        return userService.getAllPdspUserist();
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(){
-        return "login";
-    }
 }

@@ -5,6 +5,7 @@ import com.chenes.security.bean.PdspUser;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,12 @@ import java.util.List;
 public class MenuService {
 
     private final List<PdspMenu> pdspMenuList = new ArrayList<>();
+
+    public MenuService(){
+        if (pdspMenuList.size() == 0) {
+            initPdspUserToMenus();
+        }
+    }
 
     private void initPdspUserToMenus(){
         PdspMenu pdspMenu = new PdspMenu();
@@ -44,10 +51,6 @@ public class MenuService {
     }
 
     public  List<PdspMenu> getMenusByUserId(Long uId){
-        if (pdspMenuList.size() == 0) {
-            initPdspUserToMenus();
-        }
-
         List<PdspMenu> authorityMenuList = new ArrayList<>();
         for (PdspMenu pdspMenu : pdspMenuList) {
             if (pdspMenu.getUId().equals(uId)) {
@@ -55,5 +58,9 @@ public class MenuService {
             }
         }
         return authorityMenuList;
+    }
+
+    public  List<PdspMenu> getAllPdspMenuList(){
+        return pdspMenuList;
     }
 }

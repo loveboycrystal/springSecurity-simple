@@ -1,6 +1,8 @@
 package com.chenes.security.service;
 
+import com.chenes.security.bean.PdspMenu;
 import com.chenes.security.bean.PdspUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -17,10 +19,16 @@ import java.util.List;
  *   chenes  2019/10/21 15:41     1.0              新增
  */
 @Service
+@Slf4j
 public class UserService {
 
     private final List<PdspUser> pdspUserList = new ArrayList<>();
 
+    public  UserService(){
+        if (pdspUserList.size() == 0) {
+            initPdspUsers();
+        }
+    }
     private void initPdspUsers(){
         PdspUser pdspUser = new PdspUser();
         pdspUser.setUId(1L);
@@ -39,9 +47,6 @@ public class UserService {
 
     public PdspUser loadUserByUname(String uName){
 
-        if (pdspUserList.size() == 0) {
-            initPdspUsers();
-        }
 
         if(StringUtils.isEmpty(uName)){
             return null;
@@ -54,5 +59,9 @@ public class UserService {
             }
         }
         return resultPdspUser;
+    }
+
+    public  List<PdspUser> getAllPdspUserist(){
+        return pdspUserList;
     }
 }

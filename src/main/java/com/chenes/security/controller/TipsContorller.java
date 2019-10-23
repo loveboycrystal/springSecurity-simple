@@ -31,6 +31,11 @@ public class TipsContorller {
     }
 
 
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login(){
+        return "login";
+    }
+
     /**
      *  更目录访问登录页面
      * @return
