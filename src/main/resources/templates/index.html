@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <script type="text/javascript"  src="../js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+欢迎您，<span id="username"></span>
+<a href="/system/logout">退出登陆</a>
+<br>
+<hr>
+<h3>您所拥有的权限为：</h3>
+<ol id="msg"></ol>
+<hr>
+<h3>验证方法权限注解：</h3>
+<ol>
+    <li><a href="/user/list">用户列表权限</a></li>
+    <li><a href="/menu/list">菜单列表权限</a></li>
+</ol>
+
+<br>
+<script>
+    $(function(){
+        getPermission();
+    })
+    function getPermission(){
+        $.get("/system/index",function(res){
+            $("#username").text( res.username+"("+res.nickName+")")
+            var authorities = res.authorities;
+            for(var i=0;i<authorities.length;i++){
+                var map = authorities[i];
+                for(var j in map){
+                    $("#msg").append("<li>"+map[j]+"</li>")
+                }
+            }
+        })
+    }
+</script>
+
+</body>
+</html>
