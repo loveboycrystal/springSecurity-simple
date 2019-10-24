@@ -85,6 +85,24 @@ public class MenuService {
 
 ```
 
+- [x] 用户登录并授权
+```$xslt
+
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login(@RequestParam("uname") String uname, @RequestParam("pwd") String pwd, HttpServletRequest request){
+
+        UsernamePasswordAuthenticationToken  upat = new UsernamePasswordAuthenticationToken(uname,pwd);
+        Authentication authentication = myAuthenticationManager.authenticate(upat);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // 可以扩展存入redis
+        // HttpSession session = request.getSession();
+        //session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext()); 
+
+        return "redirect:/system/toindex";
+    }
+```
+
 - [x] 无需中间件的安全鉴权精简样例 (扩展PdspUserDetailsService可以实现DB)
 
 ```
