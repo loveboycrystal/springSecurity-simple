@@ -103,7 +103,7 @@ public class MenuService {
     }
 ```
 
-- [x] 无需中间件的安全鉴权精简样例 (扩展PdspUserDetailsService可以实现DB)
+- [x] 无需中间件的安全鉴权精简样例 (扩展PdspUserDetailsService可以实现DB,查看 /sql/ext_demo.sql)
 
 ```
 public class PdspUserDetailsService implements UserDetailsService {
