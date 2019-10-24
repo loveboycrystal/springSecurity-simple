@@ -41,8 +41,6 @@ public class PdspUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("账号不存在。");
         }
 
-
-        //-------------------开始授权
         List<PdspMenu> menus = menuService.getMenusByUserId(pdspUser.getUId());
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
