@@ -3,7 +3,7 @@
 >使用
 springboot 2.X 、SpringSecurity 、Jquery 3.4.1
 
-- [x] 应用配置 ***application.propertis***
+- [x] 应用配置 ***application.properties***
 ```$xslt
 # spring.profiles.active=dev
 server.port=10010
